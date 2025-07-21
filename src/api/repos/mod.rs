@@ -1,3 +1,6 @@
+use crate::api::repos::branch_protections::list::ListBranchProtectionBuilder;
+
+pub mod branch_protections;
 pub mod branches;
 pub mod commits;
 pub mod delete;
@@ -306,5 +309,10 @@ impl Repos {
     /// This will delete the branch "branch-to-delete" in the repository "owner/repo".
     pub fn delete_branch(&self, branch: impl ToString) -> branches::DeleteBranchBuilder {
         branches::DeleteBranchBuilder::new(&self.owner, &self.repo, branch)
+    }
+
+    /// List branch protections for a repository
+    pub fn branch_protections(&self) -> ListBranchProtectionBuilder {
+        ListBranchProtectionBuilder::new(&self.owner, &self.repo)
     }
 }
