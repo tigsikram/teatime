@@ -13,6 +13,7 @@ rusty_type() {
 	string) echo "String" ;;
 	integer) echo "i64" ;;
 	boolean) echo "bool" ;;
+	array) echo "Vec<String>" ;;
 	*) echo "$1" ;;
   esac
 }
@@ -20,6 +21,7 @@ rusty_type() {
 props="$(jq -r ".definitions.$name.properties" swagger.json)"
 names="$(echo "$props" | jq -r 'keys[]')"
 
+echo "pub struct $name {"
 for name in $names; do
 	desc="$(echo "$props" | jq -r ".$name.description")"
 	type="$(echo "$props" | jq -r ".$name.type")"
@@ -28,8 +30,11 @@ for name in $names; do
 	# if desc is not empty and not null
 	if [ -n "$desc" ] && [ "$desc" != "null" ]; then
 		# put '///' before each line in desc
+		echo -en "\t"
 		desc="$(echo "$desc" | sed 's/^/\/\/\/ /')"
 		echo "$desc"
 	fi
-	echo "$name: Option<$type>,"
+	echo -en "\t"
+	echo "pub $name: Option<$type>,"
 done
+echo "}"
