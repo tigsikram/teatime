@@ -215,3 +215,41 @@ pub struct ExternalWiki {
     /// URL of external wiki.
     pub external_wiki_url: String,
 }
+
+/// BranchProtection represents a branch protection for a repository
+#[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
+#[serde(default)]
+pub struct BranchProtection {
+    pub approvals_whitelist_teams: Option<Vec<String>>,
+    pub approvals_whitelist_username: Option<Vec<String>>,
+    pub block_on_official_review_requests: Option<bool>,
+    pub block_on_outdated_branch: Option<bool>,
+    pub block_on_rejected_reviews: Option<bool>,
+    /// Deprecated: true
+    pub branch_name: Option<String>,
+    pub created_at: Option<String>,
+    pub dismiss_stale_approvals: Option<bool>,
+    pub enable_approvals_whitelist: Option<bool>,
+    pub enable_force_push: Option<bool>,
+    pub enable_force_push_allowlist: Option<bool>,
+    pub enable_merge_whitelist: Option<bool>,
+    pub enable_push: Option<bool>,
+    pub enable_push_whitelist: Option<bool>,
+    pub enable_status_check: Option<bool>,
+    pub force_push_allowlist_deploy_keys: Option<bool>,
+    pub force_push_allowlist_teams: Option<Vec<String>>,
+    pub force_push_allowlist_usernames: Option<Vec<String>>,
+    pub ignore_stale_approvals: Option<bool>,
+    pub merge_whitelist_teams: Option<Vec<String>>,
+    pub merge_whitelist_usernames: Option<Vec<String>>,
+    pub protected_file_patterns: Option<String>,
+    pub push_whitelist_deploy_keys: Option<bool>,
+    pub push_whitelist_teams: Option<Vec<String>>,
+    pub push_whitelist_usernames: Option<Vec<String>>,
+    pub require_signed_commits: Option<bool>,
+    pub required_approvals: Option<i64>,
+    pub rule_name: Option<String>,
+    pub status_check_contexts: Option<Vec<String>>,
+    pub unprotected_file_patterns: Option<String>,
+    pub updated_at: Option<String>,
+}
